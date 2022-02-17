@@ -1,24 +1,33 @@
+// functions 
+function incomeInputFunc() {
+    const incomeInput = document.getElementById('income-input');
+    const incomeInputNumber = parseFloat(incomeInput.value);
+    return incomeInputNumber;
+}
+
+function foodExpenseInputFunc() {
+    const foodInput = document.getElementById('food-input');
+    const foodInputNumber = parseFloat(foodInput.value);
+    return foodInputNumber;
+}
+function rentExpenseInputFunc() {
+    const rentInput = document.getElementById('rent-input');
+    const rentInputNumber = parseFloat(rentInput.value);
+    return rentInputNumber;
+}
+function clothExpenseInputFunc() {
+    const clothsInput = document.getElementById('cloths-input');
+    const clothsInputNumber = parseFloat(clothsInput.value);
+    return clothsInputNumber;
+}
+
+
+
 // Expenses Calculate 
 document.getElementById('calculate-btn').addEventListener('click', function () {
-    // selection inputs 
-    const incomeInput = document.getElementById('income-input');
-
-    const foodInput = document.getElementById('food-input');
-    const rentInput = document.getElementById('rent-input');
-    const clothsInput = document.getElementById('cloths-input');
-
-
-    // assinign input values and covert to parseFloat
-    const incomeInputNumber = parseFloat(incomeInput.value);
-
-    const foodInputNumber = parseFloat(foodInput.value);
-    const rentInputNumber = parseFloat(rentInput.value);
-    const clothsInputNumber = parseFloat(clothsInput.value);
-
-
     // make sum of expenses values 
-    const totalExpenses = foodInputNumber + rentInputNumber + clothsInputNumber;
-    const totalBalance = incomeInputNumber - totalExpenses;
+    const totalExpenses = foodExpenseInputFunc() + rentExpenseInputFunc() + clothExpenseInputFunc();
+    const totalBalance = incomeInputFunc() - totalExpenses;
 
 
     // select expenses and balance html 
@@ -27,32 +36,37 @@ document.getElementById('calculate-btn').addEventListener('click', function () {
 
     // changing inner text to total expenses  and Error Handling
     // Error Handling 1
-    if (foodInputNumber < 0 || rentInputNumber < 0 || clothsInputNumber < 0) {
+    if (totalBalance < 0) {
+        alert('your Expens Balance bigger then income Balance');
+        expenses.innerText = 0;
+        balance.innerText = 0;
+    }
+    if (foodExpenseInputFunc() < 0 || rentExpenseInputFunc() < 0 || clothExpenseInputFunc() < 0) {
         alert("You Can't set Negitive number")
     }
     // Error Handling 2
-    if (isNaN(foodInputNumber) || isNaN(rentInputNumber) || isNaN(clothsInputNumber)) {
+    if (isNaN(foodExpenseInputFunc()) || isNaN(rentExpenseInputFunc()) || isNaN(clothExpenseInputFunc())) {
         alert('Enter Number ')
     }
 
     // Extra Error Handling 
-    if (foodInputNumber > incomeInputNumber || rentInputNumber > incomeInputNumber || clothsInputNumber > incomeInputNumber) {
+    if (foodExpenseInputFunc() > incomeInputFunc() || rentExpenseInputFunc() > incomeInputFunc() || clothExpenseInputFunc() > incomeInputFunc()) {
         alert('Oops !! Your Expense Balance is Bigger then your Income Balance')
     }
-    if (foodInputNumber > 0 && rentInputNumber > 0 && clothsInputNumber > 0) {
+    if (foodExpenseInputFunc() > 0 && rentExpenseInputFunc() > 0 && clothExpenseInputFunc() > 0) {
         expenses.innerText = totalExpenses;
         balance.innerText = totalBalance;
     }
-    if (incomeInputNumber = 0) {
+    if (incomeInputFunc() = 0) {
         alert('Enter Income')
     }
+
 })
 
 
 // save Calculate 
 document.getElementById('save-btn').addEventListener('click', function () {
     // select inputs 
-    const incomeInput = document.getElementById('income-input');
     const saveInput = document.getElementById('save-input');
 
     // select save balance and remain balance html 
@@ -61,13 +75,12 @@ document.getElementById('save-btn').addEventListener('click', function () {
     const balance = document.getElementById('total-balance');
 
     // assinign input values and covert to parseFloat
-    const incomeInputNumber = parseFloat(incomeInput.value);
     const saveINputNumber = parseFloat(saveInput.value);
 
     const balanceNumber = parseFloat(balance.innerText);
 
     // calculate save percentage 
-    const totalSave = incomeInputNumber * (saveINputNumber / 100);
+    const totalSave = incomeInputFunc() * (saveINputNumber / 100);
     const remainBalanceNumber = balanceNumber - totalSave;
 
     // changing innerText of htmls and error handling
